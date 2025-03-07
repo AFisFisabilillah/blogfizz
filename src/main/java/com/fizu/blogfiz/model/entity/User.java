@@ -36,6 +36,8 @@ public class User implements UserDetails {
     @Column(name = "verification_code_expired")
     private LocalDateTime verivicationExpired;
 
+    private String name;
+
     @Column(name = "ROLE")
     @Enumerated(EnumType.STRING)
     private ROLE role;

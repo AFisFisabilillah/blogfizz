@@ -31,6 +31,10 @@ public class JwtService {
         return Keys.hmacShaKeyFor(decode);
     }
 
+    public String generateToken(UserDetails userDetails){
+        return buildToken(new HashMap<>(), userDetails);
+    }
+
     public String buildToken(Map<String, Object> extraClaims, UserDetails userDetails){
 
         return Jwts
