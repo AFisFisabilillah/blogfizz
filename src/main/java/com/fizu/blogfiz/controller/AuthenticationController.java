@@ -8,6 +8,7 @@ import com.fizu.blogfiz.model.entity.User;
 import com.fizu.blogfiz.service.AuthenticateService;
 import com.fizu.blogfiz.service.JwtService;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
@@ -23,6 +24,7 @@ import javax.print.attribute.standard.Media;
 import java.util.HashMap;
 import java.util.Map;
 
+@Slf4j
 @RestController
 public class AuthenticationController {
     @Autowired
@@ -62,7 +64,7 @@ public class AuthenticationController {
     )
     public WebResponse<String> resend(@RequestBody VerifyRequest request){
         authenticateService.verifiyUser(request);
-        return WebResponse.<String>builder().message("berhasil Mngirim Ulang Kode").status("success").build();
+        return WebResponse.<String>builder().message("Akun Anda Sudah terverifikasi").status("success").build();
     }
 
     @PostMapping(
@@ -77,15 +79,21 @@ public class AuthenticationController {
         response.put("email", login.getEmail());
         response.put("token" , token);
 
-        return WebResponse.<Map<String, String>>builder().status("succes").message("berhasi; Login").data(response).build();
+        return WebResponse.<Map<String, String>>builder().status("succes").message("berhasil Login").data(response).build();
     }
 
     @GetMapping(
-            path = "/auth/user",
+            path = "/user",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public UserDetails user(){
+    public WebResponse<UserDetails> user() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return userDetails;    }
+        UserDetails userLogin = (UserDetails) authentication.getPrincipal();
+
+        return WebResponse.<UserDetails>builder()
+                .status("success")
+                .data(userLogin)
+                .message("userrrrrrrr")
+                .build();
+    }
 }

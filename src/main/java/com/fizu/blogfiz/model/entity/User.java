@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -18,6 +20,7 @@ import java.util.List;
 @NoArgsConstructor
 @Entity
 @Table(name = "users")
+@EntityListeners({AuditingEntityListener.class})
 public class User implements UserDetails {
 
     @Id
@@ -35,6 +38,10 @@ public class User implements UserDetails {
 
     @Column(name = "verification_code_expired")
     private LocalDateTime verivicationExpired;
+
+    @CreatedDate
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     private String name;
 

@@ -44,6 +44,7 @@ public class SecurityConfig {
         authenticationProvider.setPasswordEncoder(bCryptPasswordEncoder);
 
         ProviderManager providerManager = new ProviderManager(authenticationProvider);
+        providerManager.setEraseCredentialsAfterAuthentication(true);
         return providerManager;
     }
 }

@@ -11,6 +11,7 @@ import jakarta.mail.MessagingException;
 import jakarta.validation.ConstraintViolation;
 import jakarta.validation.ConstraintViolationException;
 import jakarta.validation.Validator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,6 +25,7 @@ import java.time.LocalDateTime;
 import java.util.Random;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class AuthenticateService {
     @Autowired
@@ -121,9 +123,12 @@ public class AuthenticateService {
             throw new ResponseException("Maaf email elum Terverifikasi", HttpStatus.UNAUTHORIZED);
         }
 
+
 //        mengecek Login
         authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(request.getEmail(),
                 request.getPassword()));
+
+        log.info("berhasil login");
 
         return user;
     }

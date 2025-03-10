@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 public class RegisterRequest {
-    @NotBlank
+    @NotBlank(message = "email tidak boleh kosong")
     @Email
     private String email;
-    @NotBlank
-    @Size(min = 8)
+    @NotBlank(message = "password tidak boleh kosong")
+    @Size(min = 8, message = "password harus lebih dari 8 karakter")
     private String password;
-    @NotBlank
+    @NotBlank(message = "field name tidak boleh kosong")
     private String name;
 }
