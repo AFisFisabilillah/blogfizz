@@ -118,7 +118,6 @@ class AuthenticationControllerTest {
                 result -> {
                     WebResponse<String> response = objectMapper.readValue(result.getResponse().getContentAsString(), new TypeReference<WebResponse<String>>() {
                     });
-                    log.info("response : "+response);
                     assertEquals(response.getStatus(), "success");
                     assertEquals(response.getMessage(), "Akun Anda Sudah terverifikasi");
                     assertEquals(response.getData(),null);
@@ -274,7 +273,6 @@ class AuthenticationControllerTest {
                     assertEquals("berhasil Login", response.getMessage());
                     assertEquals("succes", response.getStatus());
                     assertEquals(user.getEmail(), response.getData().get("email"));
-                    log.info("token : "+response.getData().get("token"));
                 }
         );
 
