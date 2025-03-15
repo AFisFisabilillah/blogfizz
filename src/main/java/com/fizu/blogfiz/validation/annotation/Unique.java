@@ -11,7 +11,7 @@ import java.lang.annotation.*;
 @Target(ElementType.FIELD)
 @Constraint(validatedBy = UniqueConstraint.class)
 public @interface Unique {
-    String message() default "Data Ini sudah ada dalam tabel";
+    String message() default "Email SUdah digunakan";
 
     Class<?>[] groups() default {};
 

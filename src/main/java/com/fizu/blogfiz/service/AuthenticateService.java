@@ -42,9 +42,7 @@ public class AuthenticateService {
     public User register(RegisterRequest request){
         Set<ConstraintViolation<RegisterRequest>> validate = validator.validate(request);
         if(validate.size() > 0) throw new ConstraintViolationException(validate);
-        if(userRepository.existsByEmail(request.getEmail())){
-            throw new ResponseException("Email SUdah digunakan", HttpStatus.BAD_REQUEST);
-        }
+
         User user = new User();
         user.setEmail(request.getEmail());
         user.setRole(ROLE.USER);

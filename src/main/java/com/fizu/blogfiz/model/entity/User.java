@@ -27,11 +27,17 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Integer id;
 
+    private String name;
+
     @Column(name = "email", length = 100)
     private String email;
 
     @Column(name = "password", length = 100)
     private String password;
+
+    @Column(name = "ROLE")
+    @Enumerated(EnumType.STRING)
+    private ROLE role;
 
     @Column(name = "verification_code", length = 100)
     private String verificationCode;
@@ -39,17 +45,13 @@ public class User implements UserDetails {
     @Column(name = "verification_code_expired")
     private LocalDateTime verivicationExpired;
 
+    private Boolean isEnabled;
+
+
     @CreatedDate
     @Column(name = "created_at")
     private LocalDateTime createdAt;
 
-    private String name;
-
-    @Column(name = "ROLE")
-    @Enumerated(EnumType.STRING)
-    private ROLE role;
-
-    private Boolean isEnabled;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

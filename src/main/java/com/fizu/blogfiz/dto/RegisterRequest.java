@@ -1,5 +1,7 @@
 package com.fizu.blogfiz.dto;
 
+import com.fizu.blogfiz.model.entity.User;
+import com.fizu.blogfiz.validation.annotation.Unique;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.NotBlank;
@@ -16,6 +18,7 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
     @NotBlank(message = "email tidak boleh kosong")
     @Email
+    @Unique(field = "email", entity = User.class)
     private String email;
     @NotBlank(message = "password tidak boleh kosong")
     @Size(min = 8, message = "password harus lebih dari 8 karakter")

@@ -1,6 +1,7 @@
 package com.fizu.blogfiz.validation.constraint;
 import com.fizu.blogfiz.validation.annotation.Unique;
 import jakarta.persistence.EntityManager;
+import jakarta.persistence.TypedQuery;
 import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,7 +24,13 @@ public class UniqueConstraint implements ConstraintValidator<Unique, String> {
 
     @Override
     public boolean isValid(String value, ConstraintValidatorContext constraintValidatorContext) {
-        entityManager.createNamedQuery("SELECT COUNT("+field+") FROM "+table.getSimpleName());
-        return false;
+        String schema = table.getSimpleName();
+        String colom = field.toLowerCase();
+        TypedQuery<Long> queryUnique = entityManager.createQuery("SELECT COUNT(s) FROM " + schema + " s WHERE s." + colom + " = :value", Long.class);
+        queryUnique.setParameter("value", value);
+        Long unique = queryUnique.getSingleResult();
+
+        return unique == 0;
+
     }
 }
